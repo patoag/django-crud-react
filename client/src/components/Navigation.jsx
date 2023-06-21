@@ -10,4 +10,3 @@ export function Navigation() {
     </div>
   )
 }
-
