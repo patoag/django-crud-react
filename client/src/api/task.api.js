@@ -12,6 +12,14 @@ export const getAllTasks = async () => {
     }
 }
 
+export const getTask = async (id) => {
+    try {
+        return taskApi.get(`/${id}/`);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const createTask = async (task) => {
     try {
         return taskApi.post('/', task);
@@ -23,6 +31,14 @@ export const createTask = async (task) => {
 export const deleteTask = async (id) => {
     try {
         return taskApi.delete(`/${id}`);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const updateTask = async (id, task) => {
+    try {
+        return taskApi.put(`/${id}/`, task);
     } catch (error) {
         console.log(error);
     }

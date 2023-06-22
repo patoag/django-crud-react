@@ -1,5 +1,6 @@
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { createTask, deleteTask } from '../api/task.api'
+import { createTask, deleteTask, updateTask, getTask } from '../api/task.api'
 import { useNavigate, useParams } from 'react-router-dom'
 
 export function TaskFormPage() {
@@ -7,16 +8,34 @@ export function TaskFormPage() {
 		register,
 		handleSubmit,
 		formState: { errors },
+		setValue,
 	} = useForm()
 
 	// Yup Y Zod son opciones para mejorar las valiadaciones
 
 	const navigate = useNavigate()
 	const params = useParams()
-	console.log(params)
+
+	useEffect(() => {
+		async function loadTask() {
+			if (params.id) {
+				// fetch task
+				const {
+					data: { title, description },
+				} = await getTask(params.id)
+				setValue('title', title)
+				setValue('description', description)
+			}
+		}
+		loadTask()
+	}, [])
 
 	const onSubmit = handleSubmit(async (data) => {
-		await createTask(data)
+		if (params.id) {
+			await updateTask(params.id, data)
+		} else {
+			await createTask(data)
+		}
 		navigate('/tasks')
 	})
 
