@@ -19,3 +19,11 @@ export const createTask = async (task) => {
         console.log(error);
     }
 }
+
+export const deleteTask = async (id) => {
+    try {
+        return taskApi.delete(`/${id}`);
+    } catch (error) {
+        console.log(error);
+    }
+}
