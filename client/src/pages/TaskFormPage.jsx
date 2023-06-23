@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { createTask, deleteTask, updateTask, getTask } from '../api/task.api'
 import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-hot-toast'
 
 export function TaskFormPage() {
 	const {
@@ -33,8 +34,24 @@ export function TaskFormPage() {
 	const onSubmit = handleSubmit(async (data) => {
 		if (params.id) {
 			await updateTask(params.id, data)
+			toast.success('Task updated', {
+				position: 'buttom-right',
+				style: {
+					borderRadius: '10px',
+					background: '#101010',
+					color: '#fff',
+				}
+			})
 		} else {
 			await createTask(data)
+			toast.success('New task added', {
+				position: 'buttom-right',	
+				style: {
+					borderRadius: '10px',
+					background: '#101010',
+					color: '#fff',
+				}
+			})
 		}
 		navigate('/tasks')
 	})
@@ -55,7 +72,7 @@ export function TaskFormPage() {
 				></textarea>
 				{errors.description && <span>description is required</span>}
 
-				<button>Create</button>
+				<button>Save</button>
 			</form>
 
 			{params.id && (
@@ -64,6 +81,14 @@ export function TaskFormPage() {
 						const accepted = window.confirm('Are you sure?')
 						if (accepted) {
 							await deleteTask(params.id)
+							toast.success('Task deleted', {
+								position: 'buttom-right',
+								style: {
+									borderRadius: '10px',
+									background: '#101010',
+									color: '#fff',
+								}
+							})
 							navigate('/tasks')
 						}
 					}}
