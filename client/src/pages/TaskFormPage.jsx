@@ -57,22 +57,24 @@ export function TaskFormPage() {
 	})
 
 	return (
-		<div>
+		<div className='max-w-xl mx-auto'>
 			<form onSubmit={onSubmit}>
 				<input
 					type="text"
 					placeholder="title"
 					{...register('title', { required: true })}
+					className='bg-zinc-700 p-3 rounded-lg w-full mb-3'
 				/>
 				{errors.title && <span>title is required</span>}
 				<textarea
 					rows="3"
 					placeholder="description"
 					{...register('description', { required: true })}
+					className='bg-zinc-700 p-3 rounded-lg w-full mb-3'
 				></textarea>
 				{errors.description && <span>description is required</span>}
 
-				<button>Save</button>
+				<button className='bg-indigo-500 p-3 rounded-lg block w-full mt-3'>Save</button>
 			</form>
 
 			{params.id && (
@@ -92,6 +94,7 @@ export function TaskFormPage() {
 							navigate('/tasks')
 						}
 					}}
+					className='bg-red-500 p-3 rounded-lg block w-full mt-3'
 				>
 					Delete
 				</button>
